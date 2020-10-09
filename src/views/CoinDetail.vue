@@ -70,13 +70,13 @@
           >
         </div>
       </div>
-      <!-- <line-chart
+      <line-chart
         class="my-10"
         :colors="['orange']"
         :min="min"
         :max="max"
         :data="history.map(h => [h.date, parseFloat(h.priceUsd).toFixed(2)])"
-      /> -->
+      />
       <h3 class="text-xl my-10">Mejores Ofertas de Cambio</h3>
       <table>
         <tr
@@ -155,8 +155,11 @@ export default {
     }
   },
   watch: {
-    $route() {
-      this.getCoin()
+    $route(to) {
+      if(to.fullPath == 'coin-detail'){
+        this.getCoin()
+      }
+
     }
   },
   created() {
@@ -189,6 +192,8 @@ export default {
         this.asset = asset
         this.history = history
         this.markets = markets
+      })
+      .finally(() => {
       })
     }
   }
